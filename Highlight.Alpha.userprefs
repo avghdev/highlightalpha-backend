@@ -7,11 +7,7 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Highlight.Alpha" expanded="True">
-            <Node name="Backend.Alpha" expanded="True">
-              <Node name="Class1.cs" selected="True" />
-            </Node>
-          </Node>
+          <Node name="Highlight.Alpha" expanded="True" selected="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">
