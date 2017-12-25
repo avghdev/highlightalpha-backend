@@ -2,7 +2,7 @@
 
 namespace Backend.Alpha
 {
-    public class Class1
+    public class Main
     {
         public static void Main (string[] args) {
             Console.WriteLine("Small Boy.");

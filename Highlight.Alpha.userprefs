@@ -1,13 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workbench ActiveDocument="Highlight.Alpha Status">
     <Files>
-      <File FileName="Backend.Alpha/Class1.cs" Line="1" Column="1" />
+      <File FileName="Backend.Alpha/Main.cs" Line="6" Column="6" />
       <File FileName="Highlight.Alpha Status" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="Highlight.Alpha" expanded="True" selected="True" />
+          <Node name="Highlight.Alpha" expanded="True">
+            <Node name="Backend.Alpha" expanded="True">
+              <Node name="Main.cs" selected="True" />
+            </Node>
+          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
