@@ -2,49 +2,11 @@
 
 #GUI
 import tkinter
-#needed for the clipboard event detection
-import time
-import threading
-
-#listener class that inherits from Thread 
-class ClipListener(threading.Thread):
-    #overriding Thread constructor
-    def __init__(self, pause = .5):
-        #from documentation: If the subclass overrides the constructor, it must make sure to invoke the base class constructor (Thread.__init__()) before doing anything else to the thread.
-        super().__init__() #calls Thread class constructor first
-        
-        #initialize parameters 
-        self.pause = pause
-        self.stopping = False
-        
-        #initialize event to communicate with main thread 
-        self.copyevent = threading.Event()
-
-    #override run method
-    def run(self):
-        last_value =  tkinter.Tk().clipboard_get() #initialize last_value as 
-
-        #continue until self.stopping = true
-        while not self.stopping:
-            #grab clip_board value 
-            temp_value = tkinter.Tk().clipboard_get()
-            #if last value is not equal to the temp_value, then (obviously) a change has occurred
-            if temp_value != last_value:
-                #set last value equal to current (temp) value and print
-                last_value = temp_value
-                print("set")
-                #set the event if clipboard has changed 
-                self.copyevent.set()
-            time.sleep(self.pause) #sleep for indicated amount of time (.5 by default)
-
-    #override stop method to work with our paramter 'stopping'
-    def stop(self):
-        self.stopping = True
 
 #GUI extends Frame, serving as main container for a root window 
 class GUI(tkinter.Frame):
     
-    #constructor for GUI - intializes with a default height and width if none are given
+    #constructor forith a default height and width if none are given
     def __init__(self, master, ht=600, wt=800):
 
         #uses the parent class' constructor
@@ -60,32 +22,38 @@ class GUI(tkinter.Frame):
     def update_label(self, newText):
         self.var.set(newText)
         self.label.pack()
-        
-        
-    
-def main():
-    #good practice to have a variable to stop the loop
-    running = True
+        self.master.update()
 
+#returns true if clipboard has changed, false if not 
+def check_clipboard(window, recent_value):
+    #grab clipboard value 
+    temp_value = window.master.clipboard_get()
+
+    if temp_value != recent_value:
+        return True
+
+    return False
+    
+#recursive method that checks if clipboard has changed after each window update 
+def run_listener(window, interval, recent_value):
+    #if clipboard has changed then update the current value of label
+    if check_clipboard(window, recent_value):
+        recent_value = window.master.clipboard_get()
+        window.update_label(recent_value)
+    #will call run_listener again after the window updates in .mainloop()
+    window.master.after(interval, run_listener, window, interval, recent_value)
+
+
+
+def main():
     #GUI initialized
     root = tkinter.Tk()
     gui = GUI(root)
+    recent_value = root.clipboard_get()
 
-    #start thread containing Clipboard Listener 
-    listener = ClipListener(.100)
-    listener.start()
-    
+    run_listener(gui, 200, recent_value)
 
-    #loop to keep updating the program without blocking the clipboard checks (since mainloop() is blocking)
-    while running:
-        #update the gui
-        root.update();
-        #wait .1 seconds for event to be set to true
-        event_set = listener.copyevent.wait(.100)
-        #if true then update the label and reset event
-        if event_set:
-            gui.update_label(root.clipboard_get())
-            listener.copyevent.clear()
+    root.mainloop()
         
     
 #only run this program if it is being used as the main program file
