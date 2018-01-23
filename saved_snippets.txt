@@ -1,0 +1,13 @@
+{{{start}}}
+ght as parameters ins
+{{{stop}}}
+{{{start}}}
+onstructor forith a default height and wid
+{{{stop}}}
+{{{start}}}
+#GUI extends Frame, serving as main container for a root window
+{{{stop}}}
+{{{start}}}
+Since you claim you don't want to destroy the container frame, create a secondary frame. Have this secondary frame be the container for all
+{{{stop}}}
+{{{fend}}}
