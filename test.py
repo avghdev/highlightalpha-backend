@@ -2,6 +2,7 @@
 
 #GUI
 import tkinter
+import random
 
 #GUI extends Frame, serving as main container for a root window 
 class GUI(tkinter.Frame):
@@ -21,10 +22,13 @@ class GUI(tkinter.Frame):
 
         self.text_list = []
         
-        #create the initial labels and return the amount of labels to an object variable
+        self.label_frame = tkinter.Frame(self)
         self.create_labels()
-        self.pack_propagate(False) #window will use it's own width and height as parameters instead of child's dimensions
-        self.pack()
+        
+        self.label_frame.grid(row=0)
+        self.grid()
+
+        self.master.lift()
 
     #method for creating the labels that hold the clipboard snippets 
     def create_labels(self):
@@ -72,10 +76,20 @@ class GUI(tkinter.Frame):
                     temp = file.readline()
                     temp = temp.rstrip("\n")
 
-        #add label text to respective labels and pack in
+        #variable to keep track of index
+        index = 0
+        
+        #add label text to respective labels and pack in - NEED TO IMPROVE GUI
         for string in text_list:
-            label = tkinter.Label(self, text = string, bg = "blue")
-            label.pack()
+            
+            #create label and buttons
+            label = tkinter.Label(self.label_frame, text = string, bg = random_color())
+            button = tkinter.Button(self.label_frame, text="copy")
+            
+            #pack them in with the grid manager 
+            label.grid(row=index, sticky="w"+"e")
+            button.grid(row=index, column=1)
+            index += 1
 
 #copies parameter 'value' to a file 'saved_snippets'    
 def write_to_file(value):
@@ -95,6 +109,10 @@ def write_to_file(value):
         file.write("{{{start}}}\n" + value + "\n{{{stop}}}\n")
         file.write("{{{fend}}}")
 
+#random color
+def random_color():
+    r = lambda: random.randint(0,255)
+    return ('#%02X%02X%02X' % (r(), r(), r()))
 
 #returns true if clipboard has changed, false if not 
 def check_clipboard(window, recent_value):

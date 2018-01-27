@@ -1,13 +1,30 @@
 {{{start}}}
-ght as parameters ins
+e underlined. I
 {{{stop}}}
 {{{start}}}
-onstructor forith a default height and wid
+ssibile bug could occur here
 {{{stop}}}
 {{{start}}}
-#GUI extends Frame, serving as main container for a root window
+sers/avghdev/De
 {{{stop}}}
 {{{start}}}
-Since you claim you don't want to destroy the container frame, create a secondary frame. Have this secondary frame be the container for all
+bad option "-bd": must be -after, -anchor, -before, -expand, -fill, -in, -ipadx, -ipady, -padx, -pady, or -si
+{{{stop}}}
+{{{start}}}
+== RESTART: /Users/avghdev/Desk
+{{{stop}}}
+{{{start}}}
+RESTART: /Users
+{{{stop}}}
+{{{start}}}
+/Users/avghdev/Desktop/Projects
+{{{stop}}}
+{{{start}}}
+== RESTART: /Users/avghdev/Desktop/Projects/highlightalpha-backend/test.py ==
+
+== RESTART: /Users/avghdev/
+{{{stop}}}
+{{{start}}}
+y/Frameworks/Python
 {{{stop}}}
 {{{fend}}}
