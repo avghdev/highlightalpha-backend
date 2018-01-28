@@ -1,30 +1,22 @@
 {{{start}}}
-e underlined. I
+#add label text to respectiv
 {{{stop}}}
 {{{start}}}
-ssibile bug could occur here
+#grab next line to be analyzed
 {{{stop}}}
 {{{start}}}
-sers/avghdev/De
+#add label text to respectiv
 {{{stop}}}
 {{{start}}}
-bad option "-bd": must be -after, -anchor, -before, -expand, -fill, -in, -ipadx, -ipady, -padx, -pady, or -si
+#grab next line to be analyzed
 {{{stop}}}
 {{{start}}}
-== RESTART: /Users/avghdev/Desk
+#add label text to respectiv
 {{{stop}}}
 {{{start}}}
-RESTART: /Users
+#grab next line to be analyzed
 {{{stop}}}
 {{{start}}}
-/Users/avghdev/Desktop/Projects
-{{{stop}}}
-{{{start}}}
-== RESTART: /Users/avghdev/Desktop/Projects/highlightalpha-backend/test.py ==
-
-== RESTART: /Users/avghdev/
-{{{stop}}}
-{{{start}}}
-y/Frameworks/Python
+That part works fine.
 {{{stop}}}
 {{{fend}}}

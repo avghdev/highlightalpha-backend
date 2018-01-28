@@ -20,21 +20,36 @@ class GUI(tkinter.Frame):
             with open("saved_snippets.txt","w") as file:
                 file.write("{{{fend}}}")
 
+        #List for storing text in labels - Redundant(?)
         self.text_list = []
         
+        #variable to store current text in
+        self.current_copy = ""
+
+        #frame for labels/buttons
         self.label_frame = tkinter.Frame(self)
         self.create_labels()
-        
+
+        #Pack everything using grid geometry manager
         self.label_frame.grid(row=0)
         self.grid()
 
         self.master.lift()
 
+    #button callback method
+    def callback(self, string):
+            #clear current clipboard text
+            self.master.clipboard_clear()
+            #text to clipboard
+            self.master.clipboard_append(string)
+            #set text to current clipboard value
+            self.current_copy = string
+
     #method for creating the labels that hold the clipboard snippets 
     def create_labels(self):
         
-        #create an array to hold the label text in
-        text_list = []
+        #array to hold the label text in
+        self.text_list = []
         
         #open files using 'with'
         with open("saved_snippets.txt","r") as file:
@@ -70,27 +85,27 @@ class GUI(tkinter.Frame):
                         temp = temp.rstrip("\n")
 
                     #add completed snippet to the list of label text
-                    text_list.append(new_string)
+                    self.text_list.append(new_string)
 
                     #grab next line to be analyzed
                     temp = file.readline()
                     temp = temp.rstrip("\n")
 
-        #variable to keep track of index
-        index = 0
+            #variable to keep track of index
+            index = 0
+            
+            #add label text to respective labels and pack in - NEED TO IMPROVE GUI
+            for string in self.text_list:
+                
+                #create label and buttons
+                label = tkinter.Label(self.label_frame, text = string, bg = random_color(), anchor="w")
+                button = tkinter.Button(self.label_frame, text="copy", command = lambda s=string: self.callback(s)) #lambda creates a function reference so that it will work correctly
+                
+                #pack them in with the grid manager 
+                label.grid(row=index, sticky="w"+"e")
+                button.grid(row=index, column=1)
+                index += 1
         
-        #add label text to respective labels and pack in - NEED TO IMPROVE GUI
-        for string in text_list:
-            
-            #create label and buttons
-            label = tkinter.Label(self.label_frame, text = string, bg = random_color())
-            button = tkinter.Button(self.label_frame, text="copy")
-            
-            #pack them in with the grid manager 
-            label.grid(row=index, sticky="w"+"e")
-            button.grid(row=index, column=1)
-            index += 1
-
 #copies parameter 'value' to a file 'saved_snippets'    
 def write_to_file(value):
     #save all the lines in the current file
@@ -111,7 +126,9 @@ def write_to_file(value):
 
 #random color
 def random_color():
+    #create a function pointer
     r = lambda: random.randint(0,255)
+    #return formatted tuple
     return ('#%02X%02X%02X' % (r(), r(), r()))
 
 #returns true if clipboard has changed, false if not 
@@ -119,13 +136,15 @@ def check_clipboard(window, recent_value):
     #grab clipboard value 
     temp_value = window.master.clipboard_get()
 
-    if temp_value != recent_value:
+    if temp_value != recent_value and temp_value != window.current_copy:
         return True
 
     return False
     
 #checks if clipboard has changed after each window update, sets a flag with .after() that recalls the method after each iteration of .mainloop()
 def run_listener(window, interval, recent_value):
+
+    global copy_flag
     
     #if clipboard has changed then update the current value of label
     if check_clipboard(window, recent_value):
