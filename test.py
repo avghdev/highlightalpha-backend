@@ -123,7 +123,7 @@ def write_to_file(value):
     with open("saved_snippets.txt","a") as file:
         file.write("{{{start}}}\n" + value + "\n{{{stop}}}\n")
         file.write("{{{fend}}}")
-
+        
 #random color
 def random_color():
     #create a function pointer
@@ -137,7 +137,8 @@ def check_clipboard(window, recent_value):
     temp_value = window.master.clipboard_get()
 
     if temp_value != recent_value and temp_value != window.current_copy:
-        return True
+        if temp_value != "":
+            return True
 
     return False
     
@@ -157,7 +158,7 @@ def run_listener(window, interval, recent_value):
         
         #write the value to the file
         write_to_file(str(recent_value))
-        
+
         #destroy the current frame with the old values and make a new frame with the new values
         window.destroy()
         window = GUI(root)
@@ -171,7 +172,13 @@ def main():
     #GUI initialized
     root = tkinter.Tk()
     gui = GUI(root)
-    recent_value = root.clipboard_get()
+
+    #Try/Except for Windows Compatibility
+    try:
+        recent_value = root.clipboard_get()
+    except:
+        root.clipboard_append("")
+        recent_value = root.clipboard_get()
 
     run_listener(gui, 50, recent_value)
 

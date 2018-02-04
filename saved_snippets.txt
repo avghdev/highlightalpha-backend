@@ -1,22 +1,13 @@
 {{{start}}}
-#add label text to respectiv
+https://canvas.uw.edu/
 {{{stop}}}
 {{{start}}}
-#grab next line to be analyzed
+make a github blog
 {{{stop}}}
 {{{start}}}
-#add label text to respectiv
+#store the root tkinter window
 {{{stop}}}
 {{{start}}}
-#grab next line to be analyzed
-{{{stop}}}
-{{{start}}}
-#add label text to respectiv
-{{{stop}}}
-{{{start}}}
-#grab next line to be analyzed
-{{{stop}}}
-{{{start}}}
-That part works fine.
+hlight
 {{{stop}}}
 {{{fend}}}
